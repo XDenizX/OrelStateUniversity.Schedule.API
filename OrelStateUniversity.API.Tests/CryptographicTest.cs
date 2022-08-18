@@ -6,7 +6,7 @@ namespace OrelStateUniversity.API.Tests;
 internal class CryptographicTest
 {
     [Test]
-    public void DecryptTest1()
+    public void EncryptDecryptTest()
     {
         string input = "995ba9d0b3dcb82f31b50e37a777a371";
         
@@ -21,7 +21,7 @@ internal class CryptographicTest
     }
 
     [Test]
-    public void DecryptTest2()
+    public void TargetDecryptTest()
     {
         string expectedOutput = "4920528c372e9b9d32fe932cbbcf25bb";
 

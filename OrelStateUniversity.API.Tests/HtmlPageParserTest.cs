@@ -17,33 +17,54 @@ internal class HtmlPageParserTest
             "a=toNumbers(\"6d707d2540b4193976cbb5f2b8772adb\"),b=toNumbers(\"e7180e699b02bcafba97" +
             "e1c4c390e063\"),c=toNumbers(\"fad0b5fb452efac6040b3e64eba04d33\");document.cookie=\"" +
             "BPC=\"+toHex(slowAES.decrypt(c,2,a,b))+\"; expires=Thu, 31-Dec-37 23:55:55 GMT; path" +
-            "=/\";document.location.href=\"https://oreluniver.ru/schedule/divisionlistforstuds\";");
+            "=/\";document.location.href=\"https://foobar.com\";");
     }
 
     [Test]
     public void GetVariableValueATest()
     {
-        string aVariableValue = _htmlPageParser.GetVariableValue("a");
+        string variableValue = _htmlPageParser.GetVariableValue("a");
         string expectedValue = "6d707d2540b4193976cbb5f2b8772adb";
 
-        Assert.That(aVariableValue, Is.EqualTo(expectedValue));
+        Assert.That(variableValue, Is.EqualTo(expectedValue));
     }
 
     [Test]
     public void GetVariableValueBTest()
     {
-        string aVariableValue = _htmlPageParser.GetVariableValue("b");
+        string variableValue = _htmlPageParser.GetVariableValue("b");
         string expectedValue = "e7180e699b02bcafba97e1c4c390e063";
 
-        Assert.That(aVariableValue, Is.EqualTo(expectedValue));
+        Assert.That(variableValue, Is.EqualTo(expectedValue));
     }
 
     [Test]
     public void GetVariableValueCTest()
     {
-        string aVariableValue = _htmlPageParser.GetVariableValue("c");
+        string variableValue = _htmlPageParser.GetVariableValue("c");
         string expectedValue = "fad0b5fb452efac6040b3e64eba04d33";
 
-        Assert.That(aVariableValue, Is.EqualTo(expectedValue));
+        Assert.That(variableValue, Is.EqualTo(expectedValue));
+    }
+
+    [Test]
+    public void IsHtmlPageTest()
+    {
+        string htmlPageCode = "<html>\r\n<head>\r\n\t<meta charset=\"utf-8\" />\r\n</head>\r\n" +
+            "<body>\r\n    <h1>Test</h1>\r\n</body>\r\n</html>";
+
+        var htmlPageParser = new HtmlPageParser(htmlPageCode);
+
+        Assert.That(htmlPageParser.IsHtmlPage(), Is.True);
+    }
+
+    [Test]
+    public void IsNotHtmlPageTest()
+    {
+        string htmlPageCode = "<script></script>";
+
+        var htmlPageParser = new HtmlPageParser(htmlPageCode);
+
+        Assert.That(htmlPageParser.IsHtmlPage(), Is.False);
     }
 }
