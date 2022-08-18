@@ -1,7 +1,15 @@
 ﻿namespace OrelStateUniversity.API.Helpers;
 
+/// <summary>
+/// Represent a static helper class for the string convertations.
+/// </summary>
 public static class StringHelper
 {
+    /// <summary>
+    /// Convert hexadecimal string to bytes array.
+    /// </summary>
+    /// <param name="hex">Hexadecimal string</param>
+    /// <returns>Bytes array</returns>
     public static byte[] HexToBytes(string hex)
     {
         return Enumerable
@@ -11,6 +19,11 @@ public static class StringHelper
             .ToArray();
     }
 
+    /// <summary>
+    /// Convert bytes array to hexadecimal representation.
+    /// </summary>
+    /// <param name="bytes">Bytes array</param>
+    /// <returns>Hexadecimal string representation of bytes array</returns>
     public static string BytesToHex(byte[] bytes)
     {
         return BitConverter

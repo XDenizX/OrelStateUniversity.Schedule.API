@@ -2,17 +2,30 @@
 
 namespace OrelStateUniversity.API.Helpers;
 
+/// <summary>
+/// Represent a static helper class for encryption and decryption 
+/// of messages using the AES algorithm.
+/// </summary>
 public static class CryptographicHelper
 {
     private static readonly Aes _aesAlgorithm = Aes.Create();
 
-    public static byte[] Encrypt(string inputText, CipherMode mode, string key, string IV)
+    /// <summary>
+    /// Encrypt a <paramref name="inputText"/> using specified <paramref name="mode"/>,
+    /// <paramref name="key"/> and <paramref name="initialVector"/>.
+    /// </summary>
+    /// <param name="inputText">Text for the encrypt.</param>
+    /// <param name="mode">Mode of the encryption. See <see cref="CipherMode"/></param>
+    /// <param name="key">Key for the encryption.</param>
+    /// <param name="initialVector">Initial vector for the encryption.</param>
+    /// <returns>Encrypted message as <see langword="byte"/>[].</returns>
+    public static byte[] Encrypt(string inputText, CipherMode mode, string key, string initialVector)
     {
         byte[] output;
 
         _aesAlgorithm.Mode = mode;
+        _aesAlgorithm.IV = StringHelper.HexToBytes(initialVector);
         _aesAlgorithm.Key = StringHelper.HexToBytes(key);
-        _aesAlgorithm.IV = StringHelper.HexToBytes(IV);
 
         ICryptoTransform encryptor = _aesAlgorithm.CreateEncryptor(_aesAlgorithm.Key, _aesAlgorithm.IV);
 
@@ -30,13 +43,22 @@ public static class CryptographicHelper
         return output;
     }
 
-    public static string Decrypt(byte[] cipherText, CipherMode mode, string key, string IV)
+    /// <summary>
+    /// Decrypt a <paramref name="cipherText"/> using specified <paramref name="mode"/>,
+    /// <paramref name="key"/> and <paramref name="initialVector"/>.
+    /// </summary>
+    /// <param name="cipherText">Text for the decryption.</param>
+    /// <param name="mode">Mode of the decryption. See <see cref="CipherMode"/></param>
+    /// <param name="key">Key for the decryption.</param>
+    /// <param name="initialVector">Initial vector for the decryption.</param>
+    /// <returns>Decrypted message as <see langword="string"/>.</returns>
+    public static string Decrypt(byte[] cipherText, CipherMode mode, string key, string initialVector)
     {
         string output;
 
-        _aesAlgorithm.Key = StringHelper.HexToBytes(key);
         _aesAlgorithm.Mode = mode;
-        _aesAlgorithm.IV = StringHelper.HexToBytes(IV);
+        _aesAlgorithm.IV = StringHelper.HexToBytes(initialVector);
+        _aesAlgorithm.Key = StringHelper.HexToBytes(key);
 
         ICryptoTransform decryptor = _aesAlgorithm.CreateDecryptor(_aesAlgorithm.Key, _aesAlgorithm.IV);
 

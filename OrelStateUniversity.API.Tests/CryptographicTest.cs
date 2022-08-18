@@ -5,11 +5,6 @@ namespace OrelStateUniversity.API.Tests;
 
 internal class CryptographicTest
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void DecryptTest()
     {
@@ -22,6 +17,6 @@ internal class CryptographicTest
         byte[] encryptedText = CryptographicHelper.Encrypt(input, mode, key, IV);
         string decryptedText = CryptographicHelper.Decrypt(encryptedText, mode, key, IV);
 
-        Assert.That(decryptedText.Equals(input), Is.True);
+        Assert.That(decryptedText, Is.EqualTo(input));
     }
 }

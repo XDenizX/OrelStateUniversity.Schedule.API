@@ -1,15 +1,9 @@
 ﻿using OrelStateUniversity.API.Helpers;
-using System.Security.Cryptography;
 
 namespace OrelStateUniversity.API.Tests;
 
 internal class StringHelperTest
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void HexToStringTest()
     {
@@ -29,6 +23,6 @@ internal class StringHelperTest
 
         string actualOutput = StringHelper.BytesToHex(input);
 
-        Assert.That(actualOutput.Equals(expectedOutput), Is.True);
+        Assert.That(actualOutput, Is.EqualTo(expectedOutput));
     }
 }
