@@ -24,6 +24,7 @@ public static class CryptographicHelper
         byte[] output;
 
         _aesAlgorithm.Mode = mode;
+        _aesAlgorithm.Padding = PaddingMode.None;
         _aesAlgorithm.IV = StringHelper.HexToBytes(initialVector);
         _aesAlgorithm.Key = StringHelper.HexToBytes(key);
 
@@ -54,9 +55,10 @@ public static class CryptographicHelper
     /// <returns>Decrypted message as <see langword="string"/>.</returns>
     public static string Decrypt(byte[] cipherText, CipherMode mode, string key, string initialVector)
     {
-        string output;
+        var output = new byte[16];
 
         _aesAlgorithm.Mode = mode;
+        _aesAlgorithm.Padding = PaddingMode.None;
         _aesAlgorithm.IV = StringHelper.HexToBytes(initialVector);
         _aesAlgorithm.Key = StringHelper.HexToBytes(key);
 
@@ -64,12 +66,15 @@ public static class CryptographicHelper
 
         using (var memoryStream = new MemoryStream(cipherText))
         {
-            using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            using var streamReader = new StreamReader(cryptoStream);
-            
-            output = streamReader.ReadToEnd();
+            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+            {
+                using (var streamReader = new BinaryReader(cryptoStream))
+                {
+                    streamReader.Read(output);
+                }
+            }
         }
 
-        return output;
+        return StringHelper.BytesToHex(output);
     }
 }
