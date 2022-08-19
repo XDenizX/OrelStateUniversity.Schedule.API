@@ -32,10 +32,12 @@ public static class CryptographicHelper
 
         using (var memoryStream = new MemoryStream())
         {
-            using var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-            using (var streamWriter = new StreamWriter(cryptoStream))
+            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
             {
-                streamWriter.Write(inputText);
+                using (var streamWriter = new BinaryWriter(cryptoStream))
+                {
+                    streamWriter.Write(StringHelper.HexToBytes(inputText));
+                }
             }
 
             output = memoryStream.ToArray();
