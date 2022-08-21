@@ -2,7 +2,7 @@
 
 namespace OrelStateUniversity.API.Tests;
 
-internal class HtmlPageParserTest
+internal class HtmlPageHelperTest
 {
     private string _content;
 
