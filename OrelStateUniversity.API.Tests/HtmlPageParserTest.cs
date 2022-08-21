@@ -22,7 +22,8 @@ internal class HtmlPageParserTest
     [Test]
     public void GetVariableValueATest()
     {
-        string variableValue = HtmlPageHelper.GetVariableValue(_content, "a");
+        var variables = HtmlPageHelper.GetAllVariables(_content);
+        string variableValue = variables["a"];
         string expectedValue = "6d707d2540b4193976cbb5f2b8772adb";
 
         Assert.That(variableValue, Is.EqualTo(expectedValue));
@@ -31,7 +32,8 @@ internal class HtmlPageParserTest
     [Test]
     public void GetVariableValueBTest()
     {
-        string variableValue = HtmlPageHelper.GetVariableValue(_content, "b");
+        var variables = HtmlPageHelper.GetAllVariables(_content);
+        string variableValue = variables["b"];
         string expectedValue = "e7180e699b02bcafba97e1c4c390e063";
 
         Assert.That(variableValue, Is.EqualTo(expectedValue));
@@ -40,7 +42,8 @@ internal class HtmlPageParserTest
     [Test]
     public void GetVariableValueCTest()
     {
-        string variableValue = HtmlPageHelper.GetVariableValue(_content, "c");
+        var variables = HtmlPageHelper.GetAllVariables(_content);
+        string variableValue = variables["c"];
         string expectedValue = "fad0b5fb452efac6040b3e64eba04d33";
 
         Assert.That(variableValue, Is.EqualTo(expectedValue));

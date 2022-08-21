@@ -7,13 +7,20 @@ namespace OrelStateUniversity.API.Helpers;
 /// </summary>
 public static class HtmlPageHelper
 {
-    public static string GetVariableValue(string pageContent, string variableName)
+    private const string VariableRegularExpression = "(?<name>[\\w\\d]+)[\\s]*=[\\s]*toNumbers[\\s]*\\([\\s]*\"(?<value>\\w*)\"[\\s]*\\)";
+
+    public static Dictionary<string, string> GetAllVariables(string pageContent)
     {
-        var regex = new Regex($"{variableName}[\\s]*=[\\s]*toNumbers[\\s]*\\([\\s]*\"(?<value>\\w*)\"[\\s]*\\)");
+        var regex = new Regex(VariableRegularExpression);
         
-        Match match = regex.Match(pageContent);
-        
-        return match.Groups["value"].Value;
+        MatchCollection matches = regex.Matches(pageContent);
+
+        IEnumerable<KeyValuePair<string, string>> variables = matches
+            .Select(match => match.Groups)
+            .Select(group => (Name: group["name"].Value, Value: group["value"].Value))
+            .Select(x => new KeyValuePair<string, string>(x.Name, x.Value));
+
+        return new Dictionary<string, string>(variables);
     }
 
     public static bool IsHtmlPage(string pageContent)
