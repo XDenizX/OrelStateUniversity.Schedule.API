@@ -11,7 +11,7 @@ public interface IScheduleApiClient
     /// Get a list of available divisions for students.
     /// </summary>
     /// <returns>List of divisions.</returns>
-    Task<IEnumerable<Division>> GetDivisionsAsync();
+    Task<IEnumerable<Division>> GetStudentDivisionsAsync();
 
     /// <summary>
     /// Get a list of available courses for the specified <paramref name="division"/>.
