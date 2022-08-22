@@ -38,6 +38,11 @@ public class ScheduleApiClient : IScheduleApiClient
 
     public async Task<IEnumerable<Course>> GetCoursesAsync(Division division)
     {
+        if (division == null)
+        {
+            throw new ArgumentNullException(nameof(division));
+        }
+
         string endpoint = string.Format(Constants.CourseListEndpoint, division.Id);
 
         return await RequestObject<IEnumerable<Course>>(endpoint);
@@ -45,6 +50,16 @@ public class ScheduleApiClient : IScheduleApiClient
 
     public async Task<IEnumerable<Group>> GetGroupsAsync(Division division, Course course)
     {
+        if (division == null)
+        {
+            throw new ArgumentNullException(nameof(division));
+        }
+
+        if (course == null)
+        {
+            throw new ArgumentNullException(nameof(course));
+        }
+
         string endpoint = string.Format(Constants.GroupListEndpoint, division.Id, course.Number);
 
         return await RequestObject<IEnumerable<Group>>(endpoint);
