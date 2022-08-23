@@ -52,4 +52,12 @@ internal class ScheduleApiClientTest
             () => _scheduleApiClient.GetGroupsAsync(new Division { Id = 1 }, new Course { Number = 1 }),
             Throws.Nothing);
     }
+
+    [Test]
+    public void GetScheduleArgumentNullExceptionTest()
+    {
+        Assert.That(
+            () => _scheduleApiClient.GetScheduleAsync(null),
+            Throws.ArgumentNullException);
+    }
 }
