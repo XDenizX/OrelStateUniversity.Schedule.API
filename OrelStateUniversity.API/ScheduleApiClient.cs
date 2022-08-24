@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OrelStateUniversity.API.Converters;
 using OrelStateUniversity.API.Helpers;
 using OrelStateUniversity.API.Interfaces;
 using OrelStateUniversity.API.Models;
@@ -67,7 +68,16 @@ public class ScheduleApiClient : IScheduleApiClient
 
     public async Task<Schedule> GetScheduleAsync(Group group)
     {
-        throw new NotImplementedException();
+        if (group == null)
+        {
+            throw new ArgumentNullException(nameof(group));
+        }
+
+        long milliseconds = DateTimeHelper.ConvertToLong(DateTime.Now);
+        string endpoint = string.Format(Constants.ScheduleEndpoint, group.Id, milliseconds);
+
+        return await RequestObject<Schedule>(endpoint);
+
     }
 
     private async Task<T> RequestObject<T>(string endpoint)
