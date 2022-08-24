@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OrelStateUniversity.API.Converters;
 using OrelStateUniversity.API.Helpers;
 using OrelStateUniversity.API.Interfaces;
 using OrelStateUniversity.API.Models;
