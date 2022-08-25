@@ -30,7 +30,12 @@ internal class ScheduleJsonConverter : JsonConverter
                 continue;
             }
 
-            var lesson = JsonConvert.DeserializeObject<Lesson>(token.ToString());
+            Lesson? lesson = JsonConvert.DeserializeObject<Lesson>(token.ToString());
+            if (lesson == null)
+            {
+                continue;
+            }
+
             schedule.Lessons.Add(lesson);
         }    
 
