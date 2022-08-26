@@ -30,6 +30,11 @@ internal class ScheduleJsonConverter : JsonConverter
                 continue;
             }
 
+            if (token.Type != JTokenType.Object)
+            {
+                continue;
+            }
+
             Lesson? lesson = JsonConvert.DeserializeObject<Lesson>(token.ToString());
             if (lesson == null)
             {
