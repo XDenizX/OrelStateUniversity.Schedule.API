@@ -21,8 +21,8 @@ public interface IScheduleApiClient
     Task<IEnumerable<Course>> GetCoursesAsync(Division division);
 
     /// <summary>
-    /// Get a list of all groups for the specified <paramref name="division"/>.
-    /// on the <paramref name="course"/>
+    /// Get a list of all groups for the specified <paramref name="division"/>
+    /// on the specified <paramref name="course"/>.
     /// </summary>
     /// <param name="division"></param>
     /// <param name="course"></param>
