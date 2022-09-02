@@ -50,16 +50,20 @@ public class ScheduleApiClient : IScheduleApiClient
         return await RequestObject<IEnumerable<Group>>(endpoint);
     }
 
-    public async Task<Schedule> GetScheduleAsync(int groupId)
+    public async Task<Schedule> GetScheduleAsync(int groupId, DateTime dateTime)
     {
         // Time offset for getting the schedule correctly.
         // The API does not return lessons for the current day.
-        long milliseconds = DateTimeHelper.ConvertToLong(DateTime.Now - TimeSpan.FromDays(1));
-        
+        long milliseconds = DateTimeHelper.ConvertToLong(dateTime - TimeSpan.FromDays(1));
+
         string endpoint = string.Format(Constants.ScheduleEndpoint, groupId, milliseconds);
 
         return await RequestObject<Schedule>(endpoint);
+    }
 
+    public async Task<Schedule> GetScheduleAsync(int groupId)
+    {
+        return await GetScheduleAsync(groupId, DateTime.Now);
     }
 
     private async Task<T> RequestObject<T>(string endpoint)

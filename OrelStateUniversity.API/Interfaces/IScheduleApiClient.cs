@@ -30,9 +30,19 @@ public interface IScheduleApiClient
     Task<IEnumerable<Group>> GetGroupsAsync(int divisionId, int courseNumber);
 
     /// <summary>
-    /// Get a schedule for the specified <paramref name="groupId"/>.
+    /// Get a schedule for the specified <paramref name="groupId"/>
+    /// for 7 days starting from the current moment.
     /// </summary>
     /// <param name="groupId">Identifier of group</param>
     /// <returns>Model of schedule.</returns>
     Task<Schedule> GetScheduleAsync(int groupId);
+
+    /// <summary>
+    /// Get a schedule for the specified <paramref name="groupId"/>
+    /// for 7 days starting from the <paramref name="dateTime"/>.
+    /// </summary>
+    /// <param name="groupId">Identifier of group</param>
+    /// <param name="dateTime">The date andtime starting from which you need to get the schedule</param>
+    /// <returns>Model of schedule.</returns>
+    Task<Schedule> GetScheduleAsync(int groupId, DateTime dateTime);
 }
