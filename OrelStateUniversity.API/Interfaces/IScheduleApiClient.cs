@@ -32,7 +32,7 @@ public interface IScheduleApiClient
     /// <summary>
     /// Get a schedule for the specified <paramref name="groupId"/>.
     /// </summary>
-    /// <param name="groupId">Identifier of division</param>
+    /// <param name="groupId">Identifier of group</param>
     /// <returns>Model of schedule.</returns>
     Task<Schedule> GetScheduleAsync(int groupId);
 }
