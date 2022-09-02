@@ -18,11 +18,11 @@ This class library provides a client .NET implementation for interacting with th
 You can install this package at this [link](https://www.nuget.org/packages/OrelStateUniversity.API) or using the following commands:
 
 ```
-Install-Package OrelStateUniversity.API -Version 1.0.0
+Install-Package OrelStateUniversity.API -Version 1.0.1
 ```
 or
 ```
-dotnet add package OrelStateUniversity.API --version 1.0.0
+dotnet add package OrelStateUniversity.API --version 1.0.1
 ```
 ## Usage
 
