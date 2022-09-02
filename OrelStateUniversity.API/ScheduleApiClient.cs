@@ -36,44 +36,24 @@ public class ScheduleApiClient : IScheduleApiClient
         return await RequestObject<IEnumerable<Division>>(Constants.DevisionListEndpoint);
     }
 
-    public async Task<IEnumerable<Course>> GetCoursesAsync(Division division)
+    public async Task<IEnumerable<Course>> GetCoursesAsync(int divisionId)
     {
-        if (division == null)
-        {
-            throw new ArgumentNullException(nameof(division));
-        }
-
-        string endpoint = string.Format(Constants.CourseListEndpoint, division.Id);
+        string endpoint = string.Format(Constants.CourseListEndpoint, divisionId);
 
         return await RequestObject<IEnumerable<Course>>(endpoint);
     }
 
-    public async Task<IEnumerable<Group>> GetGroupsAsync(Division division, Course course)
+    public async Task<IEnumerable<Group>> GetGroupsAsync(int divisionId, int courseNumber)
     {
-        if (division == null)
-        {
-            throw new ArgumentNullException(nameof(division));
-        }
-
-        if (course == null)
-        {
-            throw new ArgumentNullException(nameof(course));
-        }
-
-        string endpoint = string.Format(Constants.GroupListEndpoint, division.Id, course.Number);
+        string endpoint = string.Format(Constants.GroupListEndpoint, divisionId, courseNumber);
 
         return await RequestObject<IEnumerable<Group>>(endpoint);
     }
 
-    public async Task<Schedule> GetScheduleAsync(Group group)
+    public async Task<Schedule> GetScheduleAsync(int groupId)
     {
-        if (group == null)
-        {
-            throw new ArgumentNullException(nameof(group));
-        }
-
         long milliseconds = DateTimeHelper.ConvertToLong(DateTime.Now);
-        string endpoint = string.Format(Constants.ScheduleEndpoint, group.Id, milliseconds);
+        string endpoint = string.Format(Constants.ScheduleEndpoint, groupId, milliseconds);
 
         return await RequestObject<Schedule>(endpoint);
 

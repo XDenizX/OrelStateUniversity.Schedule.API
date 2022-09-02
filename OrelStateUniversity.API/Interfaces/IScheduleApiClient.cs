@@ -14,25 +14,25 @@ public interface IScheduleApiClient
     Task<IEnumerable<Division>> GetStudentDivisionsAsync();
 
     /// <summary>
-    /// Get a list of available courses for the specified <paramref name="division"/>.
+    /// Get a list of available courses for the specified <paramref name="divisionId"/>.
     /// </summary>
-    /// <param name="division"></param>
+    /// <param name="divisionId">Identifier of division</param>
     /// <returns>List of courses.</returns>
-    Task<IEnumerable<Course>> GetCoursesAsync(Division division);
+    Task<IEnumerable<Course>> GetCoursesAsync(int divisionId);
 
     /// <summary>
-    /// Get a list of all groups for the specified <paramref name="division"/>
-    /// on the specified <paramref name="course"/>.
+    /// Get a list of all groups for the specified <paramref name="divisionId"/>
+    /// on the specified <paramref name="courseNumber"/>.
     /// </summary>
-    /// <param name="division"></param>
-    /// <param name="course"></param>
+    /// <param name="divisionId">Identifier of division</param>
+    /// <param name="courseNumber">Number of course</param>
     /// <returns>List of groups.</returns>
-    Task<IEnumerable<Group>> GetGroupsAsync(Division division, Course course);
+    Task<IEnumerable<Group>> GetGroupsAsync(int divisionId, int courseNumber);
 
     /// <summary>
-    /// Get a schedule for the specified <paramref name="group"/>.
+    /// Get a schedule for the specified <paramref name="groupId"/>.
     /// </summary>
-    /// <param name="group"></param>
+    /// <param name="groupId">Identifier of division</param>
     /// <returns>Model of schedule.</returns>
-    Task<Schedule> GetScheduleAsync(Group group);
+    Task<Schedule> GetScheduleAsync(int groupId);
 }
