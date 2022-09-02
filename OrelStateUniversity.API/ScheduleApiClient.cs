@@ -52,7 +52,10 @@ public class ScheduleApiClient : IScheduleApiClient
 
     public async Task<Schedule> GetScheduleAsync(int groupId)
     {
-        long milliseconds = DateTimeHelper.ConvertToLong(DateTime.Now);
+        // Time offset for getting the schedule correctly.
+        // The API does not return lessons for the current day.
+        long milliseconds = DateTimeHelper.ConvertToLong(DateTime.Now - TimeSpan.FromDays(1));
+        
         string endpoint = string.Format(Constants.ScheduleEndpoint, groupId, milliseconds);
 
         return await RequestObject<Schedule>(endpoint);
